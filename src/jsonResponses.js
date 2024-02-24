@@ -27,6 +27,41 @@ const respondJSONMeta = (request, response, status) => {
     response.end();
 };
 
+const getGallery = (request, response, body) => {
+    // Set up response JSON.
+    const responseJSON = {};
+
+    // If no gallery name was provided, respond with 400 error.
+    if (!body.galName) {
+        responseJSON.message = 'Name required to get existing gallery.';
+        responseJSON.id = 'getGalleryMissingParam';
+        return respondJSON(request, response, 400, JSON.stringify(responseJSON));
+
+    // If galleries does not contain gallery of name parameter, respond with separate 400 error.
+    } else if (!galleries[`gal-${body.galName}`]) {
+        responseJSON.message = `Could not find gallery under the name of '${body.galName}'.`;
+        responseJSON.id = 'galleryNotFound';
+        return respondJSON(request, response, 400, JSON.stringify(responseJSON));
+    }
+
+    // Else, put the gallery in a response object.
+    responseJSON.gallery = galleries[`gal-${body.galName}`];
+
+    // Respond with gallery and response code 200.
+    return respondJSON(request, response, 200, JSON.stringify(responseJSON));
+};
+
+const getGalleryMeta = (request, response, body) => {
+    // If no gallery name was provided OR if galleries does not contain gallery of name
+    // parameter, respond with a 400 error head/meta response.
+    if (!body.galName || !galleries[`gal-${body.galName}`]) {
+        return respondJSONMeta(request, response, 400);
+    }
+
+    // Else respond with response code of 200.
+    return respondJSONMeta(request, response, 200);
+};
+
 const createGallery = (request, response, body) => {
     // Set up response JSON.
     const responseJSON = {
@@ -66,7 +101,7 @@ const createGallery = (request, response, body) => {
 const addImage = (request, response, body) => {
     // Set up response JSON.
     const responseJSON = {
-        message: 'Name and url required to add image.'
+        message: 'Name and URL required to add image.'
     };
 
     // If no image name or url parameters, then respond with 400 error.
@@ -114,6 +149,8 @@ const notFoundMeta = (request, response) => {
 }
 
 module.exports = {
+    getGallery,
+    getGalleryMeta,
     createGallery,
     addImage,
     notFound,
