@@ -3,9 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+    <title>Image Gallery Creator</title>
+    <script>
+        const handleResponse = async (response) => {
+            const responseText = await response.text();
+            console.log(responseText);
+        };
 
+        const sendGalleryPost = async (form) => {
+            const url = form.getAttribute('action');
+            const method = form.getAttribute('method');
+
+            const galName = document.getElementById('galNameField').value;
+
+            const formData = `galName=${galName}`;
+
+            const response = await fetch(url, {
+                method,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlenconded'
+                },
+                body: formData
+            });
+
+            handleResponse(response);
+        };
+
+        const sendImagePost = async (form) => {
+            const url = form.getAttribute('action');
+            const method = form.getAttribute('method');
+
+            const imgName = document.getElementById('imgNameField').value;
+            const imgSource = document.getElementById('imgSourceField').value;
+            const imgURL = document.getElementById('imgURLField').value;
+
+            const formData = `imgName=${imgName}&imgSource=${imgSource}&imgURL=${imgURL}&galName=`;
+
+            const response = await fetch(url, {
+                method,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlenconded'
+                },
+                body: formData
+            });
+
+            handleResponse(response);
+        };
+
+        const init = (e) => {
+            const galForm = document.getElementById('galForm');
+            const imgForm = document.getElementById('imgForm');
+
+            const createGal = (e) => {
+                e.preventDefault();
+                sendGalleryPost(galForm);
+                return false;
+            };
+
+            const addImage = (e) => {
+                e.preventDefault();
+                sendImagePost(imgForm);
+                return false;
+            };
+
+            galForm.addEventListener('submit', createGal);
+            imgForm.addEventListener('submit', addImage);
+        };
+
+        window.onload = init;
+    </script>
+</head>
+
+<body>
+    <form action="/createGallery" method="post" id="galForm">
+        <label for="galName">Gallery Name: </label>
+        <input id="galNameField" type="text" name="galName" />
+        <input type="submit" value="Add Gallery" />
+    </form>
+
+    <form action="/addImage" method="post" id="imgForm">
+        <label for="imgName">Image Name: </label>
+        <input id="imgNameField" type="text" name="imgName" />
+        <label for="imgSource">Image Name: </label>
+        <input id="imgSourceField" type="text" name="imgSource" />
+        <label for="imgURL">Image URL: </label>
+        <input id="imgURLField" type="text" name="imgURL" />
+        <input type="submit" value="Add Image to Gallery" />
+    </form>
 </body>
 </html>

@@ -46,15 +46,15 @@ const urlStruct = {
     '/getGallery': jsonHandler.getGalleryMeta,
     notFound: jsonHandler.notFoundMeta,
   },
-
-  POST: {
-    '/createGallery': parseBody,
-    '/addImage': parseBody,
-  },
 };
 
 const onRequest = (request, response) => {
   const parsedURL = url.parse(request.url);
+
+  urlStruct['POST'] = {
+    '/createGallery': () => { parseBody(request, response, jsonHandler.createGallery); },
+    '/addImage': () => { parseBody(request, response, jsonHandler.addImage); }
+  };
 
   const methodHandler = urlStruct[request.method];
   if (!methodHandler) {
@@ -62,9 +62,10 @@ const onRequest = (request, response) => {
   }
 
   const handlerFunc = methodHandler[parsedURL.pathname];
+  console.log(handlerFunc);
 
   if (handlerFunc) {
-    handlerFunc(request, response, jsonHandler.addUser);
+    handlerFunc(request, response);
   } else {
     urlStruct.GET.notFound(request, response);
   }

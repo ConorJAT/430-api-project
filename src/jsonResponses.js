@@ -35,14 +35,8 @@ const getGallery = (request, response) => {
   return respondJSON(request, response, 200, JSON.stringify(responseJSON));
 };
 
-const getGalleryMeta = (request, response, body) => {
-  // If no gallery name was provided OR if galleries does not contain gallery of name
-  // parameter, respond with a 400 error head/meta response.
-  if (!body.galName || !galleries[`gal-${body.galName}`]) {
-    return respondJSONMeta(request, response, 400);
-  }
-
-  // Else respond with response code of 200.
+const getGalleryMeta = (request, response) => {
+  // Respond with response code of 200.
   return respondJSONMeta(request, response, 200);
 };
 
