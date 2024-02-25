@@ -63,11 +63,11 @@ const onRequest = (request, response) => {
   
     const handlerFunc = methodHandler[parsedURL.pathname];
 
-    // if (handlerFunc) {
-    //     handlerFunc(request, response, jsonHandler.addUser);
-    // } else {
-    //     urlStruct.GET.notFound(request, response);
-    // }
+    if (handlerFunc) {
+        handlerFunc(request, response, jsonHandler.addUser);
+    } else {
+        urlStruct.GET.notFound(request, response);
+    }
 };
 
 http.createServer(onRequest).listen(port, () => { console.log(`Listening on 127.0.0.1:${port}`); });

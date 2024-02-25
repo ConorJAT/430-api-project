@@ -27,27 +27,11 @@ const respondJSONMeta = (request, response, status) => {
     response.end();
 };
 
-const getGallery = (request, response, body) => {
+const getGallery = (request, response) => {
     // Set up response JSON.
-    const responseJSON = {};
+    const responseJSON = { galleries };
 
-    // If no gallery name was provided, respond with 400 error.
-    if (!body.galName) {
-        responseJSON.message = 'Name required to get existing gallery.';
-        responseJSON.id = 'getGalleryMissingParam';
-        return respondJSON(request, response, 400, JSON.stringify(responseJSON));
-
-    // If galleries does not contain gallery of name parameter, respond with separate 400 error.
-    } else if (!galleries[`gal-${body.galName}`]) {
-        responseJSON.message = `Could not find gallery under the name of '${body.galName}'.`;
-        responseJSON.id = 'galleryNotFound';
-        return respondJSON(request, response, 400, JSON.stringify(responseJSON));
-    }
-
-    // Else, put the gallery in a response object.
-    responseJSON.gallery = galleries[`gal-${body.galName}`];
-
-    // Respond with gallery and response code 200.
+    // Respond with all galleries and response code 200.
     return respondJSON(request, response, 200, JSON.stringify(responseJSON));
 };
 
