@@ -88,6 +88,12 @@ const addImage = (request, response, body) => {
     return respondJSON(request, response, 400, JSON.stringify(responseJSON));
   }
 
+  if (JSON.stringify(galleries) === '{}') {
+    responseJSON.message = 'No galleries created. Create a gallery to add an image.';
+    responseJSON.id = 'noGalleriesCreated';
+    return respondJSON(request, response, 400, JSON.stringify(responseJSON));
+  };
+
   let responseCode = 204;
 
   // If image does not exist under name provided, add it to selected
@@ -110,7 +116,8 @@ const addImage = (request, response, body) => {
 
   // If not a new image, respond with 204 meta response.
   if (responseCode === 204) {
-    return respondJSONMeta(request, response, 204);
+    responseJSON.message = 'Successfully updated image information.';
+    return respondJSON(request, response, 204, JSON.stringify(responseJSON));
   }
 
   // Else, respond with 201 response/
