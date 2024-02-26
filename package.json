@@ -7,9 +7,10 @@
     "start": "node ./src/server.js",
     "pretest": "eslint ./src --fix",
     "test": "echo \"Tests Complete!\"",
-    "nodemon": "nodemon --watch ./src ./src/server.js",
+    "nodemon": "nodemon -e js,html,css --watch ./src --watch ./hosted ./src/server.js",
     "buildBundle": "webpack",
-    "watchBundle": "webpack watch"
+    "watchBundle": "webpack watch",
+    "heroku-postbuild": "webpack --mode production"
   },
   "author": "Conor Race",
   "license": "UNLICENSED",
