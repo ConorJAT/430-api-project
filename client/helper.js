@@ -13,8 +13,9 @@ const handleResponse = async (response) => {
     if (galleries) {
         content.innerHTML = '';
 
+        const galImages = galleries[`gal-${galName}`].images;
+
         for (let image in galImages) {
-            console.log(galImages[image]);
             let newImg = document.createElement('img');
             newImg.setAttribute('src', galImages[image].url);
             newImg.setAttribute('class', 'galImage');
