@@ -28,6 +28,15 @@ const respondJSONMeta = (request, response, status) => {
 };
 
 const getGallery = (request, response) => {
+  // If no galleries exist yet, respond with 400 error response.
+  if (JSON.stringify(galleries) === '{}'){
+    const errorResponse = {
+      message: 'No galleries created; cannot perform retrieval.',
+      id: 'noGalleriesToRetrieve',
+    };
+    return respondJSON(request, response, 400, JSON.stringify(errorResponse));
+  }
+  
   // Set up response JSON.
   const responseJSON = { galleries };
 
@@ -57,9 +66,12 @@ const createGallery = (request, response, body) => {
   // If gallery does not exist under name provided, create one and set up for 201 response.
   if (!galleries[`gal-${body.galName}`]) {
     responseCode = 201;
+
+    let creationDate = new Date(Date.now());
+
     galleries[`gal-${body.galName}`] = {
       name: body.galName,
-      created: Date.now.toString(),
+      created: creationDate.toDateString(),
       images: {},
     };
 
