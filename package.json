@@ -7,7 +7,9 @@
     "start": "node ./src/server.js",
     "pretest": "eslint ./src --fix",
     "test": "echo \"Tests Complete!\"",
-    "nodemon": "nodemon --watch ./src ./src/server.js"
+    "nodemon": "nodemon --watch ./src ./src/server.js",
+    "buildBundle": "webpack",
+    "watchBundle": "webpack watch"
   },
   "author": "Conor Race",
   "license": "UNLICENSED",

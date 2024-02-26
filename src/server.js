@@ -38,7 +38,7 @@ const urlStruct = {
   GET: {
     '/': htmlHandler.getIndex,
     '/styles.css': htmlHandler.getCSS,
-    '/client.js': htmlHandler.getJS,
+    '/bundle.js': htmlHandler.getJS,
     '/getGallery': jsonHandler.getGallery,
     notFound: jsonHandler.notFound,
   },

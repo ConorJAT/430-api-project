@@ -1,9 +1,9 @@
 const fs = require('fs');
 const { request } = require('http');
 
-const index = fs.readFileSync(`${__dirname}/../client/client.html`);
-const css = fs.readFileSync(`${__dirname}/../client/styles.css`);
-const js = fs.readFileSync(`${__dirname}/../client/client.js`);
+const index = fs.readFileSync(`${__dirname}/../hosted/client.html`);
+const css = fs.readFileSync(`${__dirname}/../hosted/styles.css`);
+const js = fs.readFileSync(`${__dirname}/../hosted/bundle.js`);
 
 const getIndex = (request, response) => {
   response.writeHead(200, { 'Content-Type': 'text/html' });
