@@ -37,7 +37,7 @@ const getGallery = (request, response) => {
 
 const getGalleryMeta = (request, response) => {
   // Respond with response code of 200.
-  return respondJSONMeta(request, response, 200);
+  respondJSONMeta(request, response, 200);
 };
 
 const createGallery = (request, response, body) => {
@@ -92,7 +92,7 @@ const addImage = (request, response, body) => {
     responseJSON.message = 'No galleries created. Create a gallery to add an image.';
     responseJSON.id = 'noGalleriesCreated';
     return respondJSON(request, response, 400, JSON.stringify(responseJSON));
-  };
+  }
 
   let responseCode = 204;
 
