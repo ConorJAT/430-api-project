@@ -7,11 +7,18 @@ const handleResponse = async (response) => {
     let galleries = parsedData.galleries;
     let message = parsedData.message;
 
-    const galName = document.getElementById('createdGals').value;
-    const content = document.getElementById('content');
+    const activeGal = getActiveGallery(document.getElementById('galleries').childNodes);
+
+    let galName = '';
+    if (activeGal !== null) { galName = activeGal.getAttribute('name'); }
+
+    const imgDisplay = document.getElementById('img-display');
+    
+    // const galName = document.getElementById('createdGals').value;
+    // const content = document.getElementById('content');
 
     if (galleries) {
-        content.innerHTML = '';
+        imgDisplay.innerHTML = '';
 
         const galImages = galleries[`gal-${galName}`].images;
 
@@ -19,7 +26,7 @@ const handleResponse = async (response) => {
             let newImg = document.createElement('img');
             newImg.setAttribute('src', galImages[image].url);
             newImg.setAttribute('class', 'galImage');
-            content.appendChild(newImg);
+            imgDisplay.appendChild(newImg);
         }
     }
 };
@@ -48,8 +55,6 @@ const sendGalleryPost = async (form) => {
 
     const formData = `galName=${galName}`;
 
-    console.log(url + " | " + method + " | " + galName + " | " + formData);
-
     const response = await fetch(url, {
         method,
         headers: {
@@ -63,15 +68,23 @@ const sendGalleryPost = async (form) => {
 
     if (galName == '' || isCreated){ return; }
 
-    for (let gallery of createdGals.childNodes) {
-        gallery.active = 'false';
-    }
+    setGalleriesInactive(createdGals.childNodes);
 
     const newGal = document.createElement('div');
     newGal.setAttribute('class', 'gallery');
-    newGal.active = 'true';
-    newGal.name = galName;
+    newGal.setAttribute('active', 'true');
+    newGal.setAttribute('name', galName);
     newGal.appendChild(document.createTextNode(galName));
+
+    newGal.style.backgroundColor = 'rgb(201, 189, 174)';
+
+    newGal.addEventListener('click', () => {
+        setGalleriesInactive(document.getElementById('galleries').childNodes);
+        newGal.setAttribute('active', 'true');
+        newGal.style.backgroundColor = 'rgb(201, 189, 174)';
+        getGalleries();
+    });
+
     createdGals.appendChild(newGal)
 };
 
@@ -82,7 +95,11 @@ const sendImagePost = async (form) => {
     const imgName = document.getElementById('img-name-field').value;
     const imgSource = document.getElementById('img-source-field').value;
     const imgURL = document.getElementById('img-url-field').value;
-    const galName = document.getElementById('createdGals').value;
+    
+    const activeGal = getActiveGallery(document.getElementById('galleries').childNodes);
+
+    let galName = '';
+    if (activeGal != null) { galName = activeGal.getAttribute('name'); }
 
     const formData = `imgName=${imgName}&imgSource=${imgSource}&imgURL=${imgURL}&galName=${galName}`;
 
@@ -96,6 +113,21 @@ const sendImagePost = async (form) => {
     });
 
     handleResponse(response);
+};
+
+const getActiveGallery = (galleries) => {
+    for (let gallery of galleries) {
+        if (gallery.getAttribute('active') === 'true') { return gallery; }
+    }
+
+    return null;
+};
+
+const setGalleriesInactive = (galleries) => {
+    for (let gallery of galleries) { 
+        gallery.setAttribute('active', 'false'); 
+        gallery.style.backgroundColor = 'antiquewhite';
+    }
 };
 
 module.exports = {
