@@ -36,15 +36,15 @@ const sendGalleryPost = async (form) => {
 
     const galName = document.getElementById('gal-name-field').value;
 
-    // let isCreated = false;
-    // const createdGals = document.getElementById('createdGals');
-    
-    // for (let option of createdGals.childNodes) {
-    //     if (option.value == galName) { 
-    //         isCreated = true; 
-    //         break;
-    //     }
-    // }
+    let isCreated = false;
+    const createdGals = document.getElementById('galleries');
+
+    for (let gallery of createdGals.childNodes) {
+        if (gallery.name == galName){
+            isCreated = true;
+            break;
+        }
+    }
 
     const formData = `galName=${galName}`;
 
@@ -61,12 +61,18 @@ const sendGalleryPost = async (form) => {
 
     handleResponse(response);
 
-    // if (galName == '' || isCreated){ return; }
+    if (galName == '' || isCreated){ return; }
 
-    // let newEntry = document.createElement('option');
-    // newEntry.setAttribute('value', galName);
-    // newEntry.appendChild(document.createTextNode(galName));
-    // createdGals.appendChild(newEntry);
+    for (let gallery of createdGals.childNodes) {
+        gallery.active = 'false';
+    }
+
+    const newGal = document.createElement('div');
+    newGal.setAttribute('class', 'gallery');
+    newGal.active = 'true';
+    newGal.name = galName;
+    newGal.appendChild(document.createTextNode(galName));
+    createdGals.appendChild(newGal)
 };
 
 const sendImagePost = async (form) => {
