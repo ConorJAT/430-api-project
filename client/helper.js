@@ -47,7 +47,7 @@ const sendGalleryPost = async (form) => {
     const createdGals = document.getElementById('galleries');
 
     for (let gallery of createdGals.childNodes) {
-        if (gallery.name == galName){
+        if (gallery.getAttribute('name') == galName){
             isCreated = true;
             break;
         }
@@ -113,6 +113,8 @@ const sendImagePost = async (form) => {
     });
 
     handleResponse(response);
+
+    getGalleries();
 };
 
 const getActiveGallery = (galleries) => {

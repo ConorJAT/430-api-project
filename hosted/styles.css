@@ -1,7 +1,7 @@
 /* -- GRID STYELS -- */
 #grid{
     display: grid;
-    grid-template-columns: 30% 40% 30%;
+    grid-template-columns: 25% 50% 25%;
     grid-template-rows: auto;
     grid-template-areas: 
         "header  header  header"
@@ -9,6 +9,9 @@
         "input   images  galleries"
         "footer  footer  footer";
 
+    width: 90%;
+    min-width: 750px;
+    max-width: 1360px;
     margin: 0 auto;
 }
 
@@ -32,6 +35,12 @@ header{
 
 #img-display{
     grid-area: images;
+
+    padding: 10px;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 #gal-list{
@@ -49,12 +58,25 @@ footer{
 /* -- OTHER STYLES -- */
 .nav-btn{
     width: 50%;
+    height: 40px;
 
-    text-align: center;
+    background-color: bisque;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-btn:hover{
+    background-color: rgb(214, 189, 158);
+}
+
+.nav-btn:active{
+    background-color: rgb(187, 165, 139);
 }
 
 .galImage {
-    height: 180px;
+    height: 120px;
 }
 
 #galleries{
@@ -64,9 +86,12 @@ footer{
     row-gap: 15px;
 }
 
-div.gallery{
-    width: 100px;
-    height: 100px;
+.gallery{
+    aspect-ratio: 1/1;
+    width: 80%;
+    max-height: 80%;
+    max-width: 160px;
+    /* height: 100px; */
     border: 1px solid black;
 
     display: flex;
