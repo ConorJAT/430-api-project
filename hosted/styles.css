@@ -36,6 +36,10 @@ header{
 
 #gal-list{
     grid-area: galleries;
+
+    padding: 10px;
+
+    text-align: center;
 }
 
 footer{
