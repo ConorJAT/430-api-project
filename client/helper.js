@@ -34,19 +34,21 @@ const sendGalleryPost = async (form) => {
     const url = form.getAttribute('action');
     const method = form.getAttribute('method');
 
-    const galName = document.getElementById('galNameField').value;
+    const galName = document.getElementById('gal-name-field').value;
 
-    let isCreated = false;
-    const createdGals = document.getElementById('createdGals');
+    // let isCreated = false;
+    // const createdGals = document.getElementById('createdGals');
     
-    for (let option of createdGals.childNodes) {
-        if (option.value == galName) { 
-            isCreated = true; 
-            break;
-        }
-    }
+    // for (let option of createdGals.childNodes) {
+    //     if (option.value == galName) { 
+    //         isCreated = true; 
+    //         break;
+    //     }
+    // }
 
     const formData = `galName=${galName}`;
+
+    console.log(url + " | " + method + " | " + galName + " | " + formData);
 
     const response = await fetch(url, {
         method,
@@ -59,21 +61,21 @@ const sendGalleryPost = async (form) => {
 
     handleResponse(response);
 
-    if (galName == '' || isCreated){ return; }
+    // if (galName == '' || isCreated){ return; }
 
-    let newEntry = document.createElement('option');
-    newEntry.setAttribute('value', galName);
-    newEntry.appendChild(document.createTextNode(galName));
-    createdGals.appendChild(newEntry);
+    // let newEntry = document.createElement('option');
+    // newEntry.setAttribute('value', galName);
+    // newEntry.appendChild(document.createTextNode(galName));
+    // createdGals.appendChild(newEntry);
 };
 
 const sendImagePost = async (form) => {
     const url = form.getAttribute('action');
     const method = form.getAttribute('method');
 
-    const imgName = document.getElementById('imgNameField').value;
-    const imgSource = document.getElementById('imgSourceField').value;
-    const imgURL = document.getElementById('imgURLField').value;
+    const imgName = document.getElementById('img-name-field').value;
+    const imgSource = document.getElementById('img-source-field').value;
+    const imgURL = document.getElementById('img-url-field').value;
     const galName = document.getElementById('createdGals').value;
 
     const formData = `imgName=${imgName}&imgSource=${imgSource}&imgURL=${imgURL}&galName=${galName}`;

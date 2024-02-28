@@ -9,28 +9,26 @@
 </head>
 
 <body>
-    <form action="/createGallery" method="post" id="galForm">
-        <label for="galName">Gallery Name: </label>
-        <input id="galNameField" type="text" name="galName" />
-        <input type="submit" value="Add Gallery" />
-    </form>
+    <div id="grid">
+        <header>
+            <h1>Image Gallery Creator</h1>
+            <h2>Conor Race - IGME 430 - Project 1</h2>
+        </header>
 
-    <form action="/addImage" method="post" id="imgForm">
-        <label for="imgName">Image Name: </label>
-        <input id="imgNameField" type="text" name="imgName" />
-        <label for="imgSource">Image Source: </label>
-        <input id="imgSourceField" type="text" name="imgSource" />
-        <label for="imgURL">Image URL: </label>
-        <input id="imgURLField" type="text" name="imgURL" />
-        <input type="submit" value="Add Image to Gallery" />
-    </form>
+        <nav id="navbar">
+            <div class="nav-btn" id="add-gal">Create Gallery</div>
+            <div class="nav-btn" id="add-img">Add Image to Gallery</div>
+        </nav>
 
-    <select id="createdGals"></select>
+        <section id="user-input">
 
-    <button id="galBtn">Get Galleries</button>
+        </section>
 
-    <section id="content">
+        <section id="img-display"></section>
 
-    </section>
+        <section id="gal-list"></section>
+
+        <footer></footer>
+    </div>
 </body>
 </html>

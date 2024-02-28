@@ -1,3 +1,54 @@
+/* -- GRID STYELS -- */
+#grid{
+    display: grid;
+    grid-template-columns: 30% 40% 30%;
+    grid-template-rows: auto;
+    grid-template-areas: 
+        "header  header  header"
+        "nav     nav     nav"
+        "input   images  galleries"
+        "footer  footer  footer";
+
+    margin: 0 auto;
+}
+
+header{
+    grid-area: header;
+
+    text-align: center;
+}
+
+#navbar{
+    grid-area: nav;
+
+    display: flex;
+}
+
+#user-input{
+    grid-area: input;
+
+    padding: 10px;
+}
+
+#img-display{
+    grid-area: images;
+}
+
+#gal-list{
+    grid-area: galleries;
+}
+
+footer{
+    grid-area: footer;
+}
+
+/* -- OTHER STYLES -- */
+.nav-btn{
+    width: 50%;
+
+    text-align: center;
+}
+
 .galImage {
     height: 180px;
 }
