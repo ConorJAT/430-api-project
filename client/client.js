@@ -8,33 +8,15 @@ const init = (e) => {
     navAddImg.addEventListener('click', () => { buildForm(navAddImg.id); });
 
     buildForm('add-gal');
-
-    // const galForm = document.getElementById('galForm');
-    // const imgForm = document.getElementById('imgForm');
-    // const galBtn = document.getElementById('galBtn')
-
-    // const createGal = (e) => {
-    //     e.preventDefault();
-    //     helper.sendGalleryPost(galForm);
-    //     return false;
-    // };
-
-    // const addImage = (e) => {
-    //     e.preventDefault();
-    //     helper.sendImagePost(imgForm);
-    //     return false;
-    // };
-
-    // galForm.addEventListener('submit', createGal);
-    // imgForm.addEventListener('submit', addImage);
-    // galBtn.addEventListener('click', helper.getGalleries);
 };
 
 const buildForm = (elementID) => {
     const inputSec = document.getElementById('user-input');
     inputSec.innerHTML = '';
 
+    // Create Gallery Form
     if (elementID === 'add-gal'){
+        // 1.) Build all necessary elements.
         const formHeader = document.createElement('h3');
         formHeader.appendChild(document.createTextNode('Create Gallery'));
 
@@ -56,24 +38,30 @@ const buildForm = (elementID) => {
         galFormSubmit.type = 'submit';
         galFormSubmit.value = 'Add Gallery';
 
+        // 2.) Append all inputs and labels to the form.
         galForm.appendChild(galFormLabel);
         galForm.appendChild(galFormName);
         galForm.appendChild(document.createElement('br'));
         galForm.appendChild(document.createElement('br'));
         galForm.appendChild(galFormSubmit);
 
+        // 3.) Define server request function.
         const createGal = (e) => {
             e.preventDefault();
             helper.sendGalleryPost(galForm);
             return false;
         };
 
+        // 4.) Add submit event listener to the button.
         galForm.addEventListener('submit', createGal);
 
+        // 5.) Add header and form onto page.
         inputSec.appendChild(formHeader);
         inputSec.appendChild(galForm);
 
+    // Add Image Form
     } else if (elementID === 'add-img') {
+        // 1.) Build all necessary elements.
         const formHeader = document.createElement('h3');
         formHeader.appendChild(document.createTextNode('Add Image to Gallery'));
 
@@ -113,6 +101,7 @@ const buildForm = (elementID) => {
         imgFormSubmit.type = 'submit';
         imgFormSubmit.value = 'Add Image';
 
+        // 2.) Append all inputs and labels to the form.
         imgForm.appendChild(formNameLabel);
         imgForm.appendChild(formNameField);
         imgForm.appendChild(document.createElement('br'));
@@ -127,14 +116,17 @@ const buildForm = (elementID) => {
         imgForm.appendChild(document.createElement('br'));
         imgForm.appendChild(imgFormSubmit);
 
+        // 3.) Define server request function.
         const addImage = (e) => {
             e.preventDefault();
             helper.sendImagePost(imgForm);
             return false;
         };
 
+        // 4.) Add submit event listener to the button.
         imgForm.addEventListener('submit', addImage);
 
+        // 5.) Add header and form onto page.
         inputSec.appendChild(formHeader);
         inputSec.appendChild(imgForm);
     }
