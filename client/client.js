@@ -21,22 +21,22 @@ const buildForm = (elementID) => {
         formHeader.appendChild(document.createTextNode('Create Gallery'));
 
         const galForm = document.createElement('form');
-        galForm.action = '/createGallery';
-        galForm.method = 'post';
-        galForm.class = 'input-form';
+        galForm.setAttribute('action', '/createGallery');
+        galForm.setAttribute('method', 'post');
+        galForm.setAttribute('class', 'input-form');;
 
         const galFormLabel = document.createElement('label');
-        galFormLabel.for = 'galName';
+        galFormLabel.setAttribute('for', 'galName');
         galFormLabel.appendChild(document.createTextNode('Gallery Name: '));
 
         const galFormName = document.createElement('input');
-        galFormName.type = 'text';
-        galFormName.name = 'galName';
-        galFormName.id = 'gal-name-field';
+        galFormName.setAttribute('type', 'text');
+        galFormName.setAttribute('name', 'galName');
+        galFormName.setAttribute('id', 'gal-name-field');
 
         const galFormSubmit = document.createElement('input');
-        galFormSubmit.type = 'submit';
-        galFormSubmit.value = 'Add Gallery';
+        galFormSubmit.setAttribute('type', 'submit');
+        galFormSubmit.setAttribute('value', 'Add Gallery');
 
         // 2.) Append all inputs and labels to the form.
         galForm.appendChild(galFormLabel);
@@ -66,40 +66,40 @@ const buildForm = (elementID) => {
         formHeader.appendChild(document.createTextNode('Add Image to Gallery'));
 
         const imgForm = document.createElement('form');
-        imgForm.action = '/addImage';
-        imgForm.method = 'post';
-        imgForm.class = 'input-form';
+        imgForm.setAttribute('action', '/addImage');
+        imgForm.setAttribute('method', 'post');
+        imgForm.setAttribute('class', 'input-form');;
 
         const formNameLabel = document.createElement('label');
-        formNameLabel.for = 'imgName';
+        formNameLabel.setAttribute('for', 'imgName');
         formNameLabel.appendChild(document.createTextNode('Image Name: '));
 
         const formNameField = document.createElement('input');
-        formNameField.type = 'text';
-        formNameField.name = 'imgName';
-        formNameField.id = 'img-name-field';
+        formNameField.setAttribute('type', 'text');
+        formNameField.setAttribute('name', 'imgName');
+        formNameField.setAttribute('id', 'img-name-field');
 
         const formSourceLabel = document.createElement('label');
-        formSourceLabel.for = 'imgSource';
+        formSourceLabel.setAttribute('for', 'imgSource');
         formSourceLabel.appendChild(document.createTextNode('Image Source: '));
 
         const formSourceField = document.createElement('input');
-        formSourceField.type = 'text';
-        formSourceField.name = 'imgSource';
-        formSourceField.id = 'img-source-field';
+        formSourceField.setAttribute('type', 'text');
+        formSourceField.setAttribute('name', 'imgSource');
+        formSourceField.setAttribute('id', 'img-source-field');
 
         const formURLLabel = document.createElement('label');
-        formURLLabel.for = 'imgURL';
+        formURLLabel.setAttribute('for', 'imgURL');
         formURLLabel.appendChild(document.createTextNode('Image URL: '));
 
         const formURLField = document.createElement('input');
-        formURLField.type = 'text';
-        formURLField.name = 'imgURL';
-        formURLField.id = 'img-url-field';
+        formURLField.setAttribute('type', 'text');
+        formURLField.setAttribute('name', 'imgURL');
+        formURLField.setAttribute('id', 'img-url-field');
 
         const imgFormSubmit = document.createElement('input');
-        imgFormSubmit.type = 'submit';
-        imgFormSubmit.value = 'Add Image';
+        imgFormSubmit.setAttribute('type', 'submit');
+        imgFormSubmit.setAttribute('value', 'Add Image');
 
         // 2.) Append all inputs and labels to the form.
         imgForm.appendChild(formNameLabel);

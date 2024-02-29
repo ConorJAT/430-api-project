@@ -13,9 +13,6 @@ const handleResponse = async (response) => {
     if (activeGal !== null) { galName = activeGal.getAttribute('name'); }
 
     const imgDisplay = document.getElementById('img-display');
-    
-    // const galName = document.getElementById('createdGals').value;
-    // const content = document.getElementById('content');
 
     if (galleries) {
         imgDisplay.innerHTML = '';
