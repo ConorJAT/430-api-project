@@ -128,8 +128,7 @@ const addImage = (request, response, body) => {
 
   // If not a new image, respond with 204 meta response.
   if (responseCode === 204) {
-    responseJSON.message = 'Successfully updated image information.';
-    return respondJSON(request, response, 204, JSON.stringify(responseJSON));
+    return respondJSONMeta(request, response, 204);
   }
 
   // Else, respond with 201 response/
