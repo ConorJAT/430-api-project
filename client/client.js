@@ -3,9 +3,13 @@ const helper = require('./helper.js');
 const init = (e) => {
     const navAddGal = document.getElementById('add-gal');
     const navAddImg = document.getElementById('add-img');
+    const navDelGal = document.getElementById('del-gal');
+    const navDelImg = document.getElementById('del-img');
 
     navAddGal.addEventListener('click', () => { buildForm(navAddGal.id); });
     navAddImg.addEventListener('click', () => { buildForm(navAddImg.id); });
+    navDelGal.addEventListener('click', () => { buildForm(navDelGal.id); });
+    navDelImg.addEventListener('click', () => { buildForm(navDelImg.id); });
 
     buildForm('add-gal');
 };
@@ -125,6 +129,92 @@ const buildForm = (elementID) => {
 
         // 4.) Add submit event listener to the button.
         imgForm.addEventListener('submit', addImage);
+
+        // 5.) Add header and form onto page.
+        inputSec.appendChild(formHeader);
+        inputSec.appendChild(imgForm);
+    } else if (elementID === 'del-gal') {
+        // 1.) Build all necessary elements.
+        const formHeader = document.createElement('h3');
+        formHeader.appendChild(document.createTextNode('Remove Gallery'));
+
+        const galForm = document.createElement('form');
+        galForm.setAttribute('action', '/removeGallery');
+        galForm.setAttribute('method', 'post');
+        galForm.setAttribute('class', 'input-form');;
+
+        const galFormLabel = document.createElement('label');
+        galFormLabel.setAttribute('for', 'galName');
+        galFormLabel.appendChild(document.createTextNode('Gallery Name: '));
+
+        const galFormName = document.createElement('input');
+        galFormName.setAttribute('type', 'text');
+        galFormName.setAttribute('name', 'galName');
+        galFormName.setAttribute('id', 'gal-name-field');
+
+        const galFormSubmit = document.createElement('input');
+        galFormSubmit.setAttribute('type', 'submit');
+        galFormSubmit.setAttribute('value', 'Remove Gallery');
+
+        // 2.) Append all inputs and labels to the form.
+        galForm.appendChild(galFormLabel);
+        galForm.appendChild(galFormName);
+        galForm.appendChild(document.createElement('br'));
+        galForm.appendChild(document.createElement('br'));
+        galForm.appendChild(galFormSubmit);
+
+        // 3.) Define server request function.
+        // const createGal = (e) => {
+        //     e.preventDefault();
+        //     helper.sendGalleryPost(galForm);
+        //     return false;
+        // };
+
+        // 4.) Add submit event listener to the button.
+        // galForm.addEventListener('submit', createGal);
+
+        // 5.) Add header and form onto page.
+        inputSec.appendChild(formHeader);
+        inputSec.appendChild(galForm);
+    } else if (elementID === 'del-img') {
+        // 1.) Build all necessary elements.
+        const formHeader = document.createElement('h3');
+        formHeader.appendChild(document.createTextNode('Remove Image from Gallery'));
+
+        const imgForm = document.createElement('form');
+        imgForm.setAttribute('action', '/removeImage');
+        imgForm.setAttribute('method', 'post');
+        imgForm.setAttribute('class', 'input-form');;
+
+        const imgFormLabel = document.createElement('label');
+        imgFormLabel.setAttribute('for', 'imgName');
+        imgFormLabel.appendChild(document.createTextNode('Image Name: '));
+
+        const imgFormName = document.createElement('input');
+        imgFormName.setAttribute('type', 'text');
+        imgFormName.setAttribute('name', 'imgName');
+        imgFormName.setAttribute('id', 'img-name-field');
+
+        const imgFormSubmit = document.createElement('input');
+        imgFormSubmit.setAttribute('type', 'submit');
+        imgFormSubmit.setAttribute('value', 'Remove Image');
+
+        // 2.) Append all inputs and labels to the form.
+        imgForm.appendChild(imgFormLabel);
+        imgForm.appendChild(imgFormName);
+        imgForm.appendChild(document.createElement('br'));
+        imgForm.appendChild(document.createElement('br'));
+        imgForm.appendChild(imgFormSubmit);
+
+        // 3.) Define server request function.
+        // const createGal = (e) => {
+        //     e.preventDefault();
+        //     helper.sendGalleryPost(galForm);
+        //     return false;
+        // };
+
+        // 4.) Add submit event listener to the button.
+        //galForm.addEventListener('submit', createGal);
 
         // 5.) Add header and form onto page.
         inputSec.appendChild(formHeader);
