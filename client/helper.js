@@ -2,6 +2,8 @@ const handleResponse = async (response) => {
     const responseText = await response.text();
     console.log(responseText);
 
+    if (responseText == '') { return; }
+
     const parsedData = JSON.parse(responseText);
 
     let galleries = parsedData.galleries;
@@ -159,6 +161,10 @@ const sendGalleryRemoval = async (form) => {
     createdGals.removeChild(galToRemove);
 
     getGalleries();
+
+    if (createdGals.childNodes.length == 0) {
+        document.getElementById('img-display').innerHTML = '';
+    }
 };
 
 const sendImageRemoval = async (form) => {
