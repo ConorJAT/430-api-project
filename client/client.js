@@ -164,14 +164,14 @@ const buildForm = (elementID) => {
         galForm.appendChild(galFormSubmit);
 
         // 3.) Define server request function.
-        // const createGal = (e) => {
-        //     e.preventDefault();
-        //     helper.sendGalleryPost(galForm);
-        //     return false;
-        // };
+        const removeGal = (e) => {
+            e.preventDefault();
+            helper.sendGalleryRemoval(galForm);
+            return false;
+        };
 
         // 4.) Add submit event listener to the button.
-        // galForm.addEventListener('submit', createGal);
+        galForm.addEventListener('submit', removeGal);
 
         // 5.) Add header and form onto page.
         inputSec.appendChild(formHeader);
@@ -207,14 +207,14 @@ const buildForm = (elementID) => {
         imgForm.appendChild(imgFormSubmit);
 
         // 3.) Define server request function.
-        // const createGal = (e) => {
-        //     e.preventDefault();
-        //     helper.sendGalleryPost(galForm);
-        //     return false;
-        // };
+        const removeImage = (e) => {
+            e.preventDefault();
+            helper.sendImageRemoval(imgForm);
+            return false;
+        };
 
         // 4.) Add submit event listener to the button.
-        //galForm.addEventListener('submit', createGal);
+        imgForm.addEventListener('submit', removeImage);
 
         // 5.) Add header and form onto page.
         inputSec.appendChild(formHeader);

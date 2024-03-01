@@ -114,6 +114,80 @@ const sendImagePost = async (form) => {
     getGalleries();
 };
 
+const sendGalleryRemoval = async (form) => {
+    const url = form.getAttribute('action');
+    const method = form.getAttribute('method');
+
+    const galName = document.getElementById('gal-name-field').value;
+
+    let isCreated = false;
+    const createdGals = document.getElementById('galleries');
+    let galToRemove = null;
+
+    for (let gallery of createdGals.childNodes) {
+        if (gallery.getAttribute('name') == galName){
+            isCreated = true;
+            galToRemove = gallery;
+            break;
+        }
+    }
+
+    const formData = `galName=${galName}`;
+
+    const response = await fetch(url, {
+        method,
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/x-www-form-urlenconded'
+        },
+        body: formData
+    });
+
+    handleResponse(response);
+
+    if (galName == '' || !isCreated){ return; }
+
+    if (galToRemove.getAttribute('active') === 'true' && createdGals.childNodes.length > 1 && createdGals.childNodes[0] == galToRemove) {
+        galToRemove.nextSibling.setAttribute('active', 'true');
+        galToRemove.nextSibling.style.backgroundColor = 'rgb(201, 189, 174)';
+        
+    } else if (galToRemove.getAttribute('active') === 'true') {
+        createdGals.childNodes[0].setAttribute('active', 'true');
+        createdGals.childNodes[0].style.backgroundColor = 'rgb(201, 189, 174)';
+    }
+
+    createdGals.removeChild(galToRemove);
+
+    getGalleries();
+};
+
+const sendImageRemoval = async (form) => {
+    const url = form.getAttribute('action');
+    const method = form.getAttribute('method');
+
+    const imgName = document.getElementById('img-name-field').value;
+
+    const activeGal = getActiveGallery(document.getElementById('galleries').childNodes);
+
+    let galName = '';
+    if (activeGal != null) { galName = activeGal.getAttribute('name'); }
+
+    const formData = `imgName=${imgName}&galName=${galName}`;
+
+    const response = await fetch(url, {
+        method,
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/x-www-form-urlenconded'
+        },
+        body: formData
+    });
+
+    handleResponse(response);
+
+    getGalleries();
+};
+
 const getActiveGallery = (galleries) => {
     for (let gallery of galleries) {
         if (gallery.getAttribute('active') === 'true') { return gallery; }
@@ -134,4 +208,6 @@ module.exports = {
     getGalleries,
     sendGalleryPost,
     sendImagePost,
+    sendGalleryRemoval,
+    sendImageRemoval
 };
