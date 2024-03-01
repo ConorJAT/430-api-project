@@ -100,6 +100,7 @@ const addImage = (request, response, body) => {
     return respondJSON(request, response, 400, JSON.stringify(responseJSON));
   }
 
+  // If no galleries have been created, the respond with 400 error.
   if (JSON.stringify(galleries) === '{}') {
     responseJSON.message = 'No galleries created; Create a gallery to add an image.';
     responseJSON.id = 'noGalleriesCreated';
@@ -131,56 +132,68 @@ const addImage = (request, response, body) => {
     return respondJSONMeta(request, response, 204);
   }
 
-  // Else, respond with 201 response/
+  // Else, respond with 201 response.
   return respondJSON(request, response, 201, JSON.stringify(responseJSON));
 };
 
 const removeGallery = (request, response, body) => {
+  // Set up repsonse JSON.
   const responseJSON = {
     message: 'Name required to remove gallery.',
   };
 
+  // If no gallery name parameter, then respond with 400 error.
   if (!body.galName) {
     responseJSON.id = 'removeGalleryMissingParam';
     return respondJSON(request, response, 400, JSON.stringify(responseJSON));
   }
 
+  // If gallery does not exist under name provided or if there
+  // are no galleries, respond with 400 error.
   if (!galleries[`gal-${body.galName}`] || JSON.stringify(galleries) === '{}') {
     responseJSON.message = `Gallery under the name of '${body.galName}' does not exist and cannot be deleted.`;
     responseJSON.id = 'galleryDoesNotExist';
     return respondJSON(request, response, 400, JSON.stringify(responseJSON));
   }
 
+  // Else, gallery exists and therefore we can delete it.
   delete galleries[`gal-${body.galName}`];
 
+  // Change message and respond with 200 success response.
   responseJSON.message = `Successfully deleted gallery named '${body.galName}'.`;
   return respondJSON(request, response, 200, JSON.stringify(responseJSON));
 };
 
 const removeImage = (request, response, body) => {
+  // Set up response JSON.
   const responseJSON = {
     message: 'Name required to remove image.',
   };
 
+  // If no image name parameter, then respond with 400 error.
   if (!body.imgName) {
     responseJSON.id = 'removeImageMissingParam';
     return respondJSON(request, response, 400, JSON.stringify(responseJSON));
   }
 
+  // If no galleries have been created, the respond with 400 error.
   if (JSON.stringify(galleries) === '{}') {
     responseJSON.message = 'No galleries created; No images to be removed.';
     responseJSON.id = 'noGalleriesCreated';
     return respondJSON(request, response, 400, JSON.stringify(responseJSON));
   }
 
+  // If image does not exist under name provided, respond with 400 error.
   if (!galleries[`gal-${body.galName}`].images[`img-${body.imgName}`]) {
     responseJSON.message = `Image name '${body.imgName}' does not exist in this gallery.`;
     responseJSON.id = 'imageDoesNotExist';
     return respondJSON(request, response, 400, JSON.stringify(responseJSON));
   }
 
+  // Else, image exists in current gallery and we can delete it.
   delete galleries[`gal-${body.galName}`].images[`img-${body.imgName}`];
 
+  // Change message and respond with 200 success response.
   responseJSON.message = `Successfully deleted image name '${body.imgName}' from gallery.`;
   return respondJSON(request, response, 200, JSON.stringify(responseJSON));
 };
