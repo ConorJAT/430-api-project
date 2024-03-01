@@ -29,14 +29,14 @@ const respondJSONMeta = (request, response, status) => {
 
 const getGallery = (request, response) => {
   // If no galleries exist yet, respond with 400 error response.
-  if (JSON.stringify(galleries) === '{}'){
+  if (JSON.stringify(galleries) === '{}') {
     const errorResponse = {
       message: 'No galleries created; cannot perform retrieval.',
       id: 'noGalleriesToRetrieve',
     };
     return respondJSON(request, response, 400, JSON.stringify(errorResponse));
   }
-  
+
   // Set up response JSON.
   const responseJSON = { galleries };
 
@@ -67,7 +67,7 @@ const createGallery = (request, response, body) => {
   if (!galleries[`gal-${body.galName}`]) {
     responseCode = 201;
 
-    let creationDate = new Date(Date.now());
+    const creationDate = new Date(Date.now());
 
     galleries[`gal-${body.galName}`] = {
       name: body.galName,
@@ -138,8 +138,8 @@ const addImage = (request, response, body) => {
 
 const removeGallery = (request, response, body) => {
   const responseJSON = {
-    message: "Name required to remove gallery."
-  }
+    message: 'Name required to remove gallery.',
+  };
 
   if (!body.galName) {
     responseJSON.id = 'removeGalleryMissingParam';
@@ -160,8 +160,8 @@ const removeGallery = (request, response, body) => {
 
 const removeImage = (request, response, body) => {
   const responseJSON = {
-    message: "Name required to remove image."
-  }
+    message: 'Name required to remove image.',
+  };
 
   if (!body.imgName) {
     responseJSON.id = 'removeImageMissingParam';
