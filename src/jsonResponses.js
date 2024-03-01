@@ -101,7 +101,7 @@ const addImage = (request, response, body) => {
   }
 
   if (JSON.stringify(galleries) === '{}') {
-    responseJSON.message = 'No galleries created. Create a gallery to add an image.';
+    responseJSON.message = 'No galleries created; Create a gallery to add an image.';
     responseJSON.id = 'noGalleriesCreated';
     return respondJSON(request, response, 400, JSON.stringify(responseJSON));
   }
@@ -136,6 +136,56 @@ const addImage = (request, response, body) => {
   return respondJSON(request, response, 201, JSON.stringify(responseJSON));
 };
 
+const removeGallery = (request, response, body) => {
+  const responseJSON = {
+    message: "Name required to remove gallery."
+  }
+
+  if (!body.galName) {
+    responseJSON.id = 'removeGalleryMissingParam';
+    return respondJSON(request, response, 400, JSON.stringify(responseJSON));
+  }
+
+  if (!galleries[`gal-${body.galName}`] || JSON.stringify(galleries) === '{}') {
+    responseJSON.message = `Gallery under the name of '${body.galName}' does not exist and cannot be deleted.`;
+    responseJSON.id = 'galleryDoesNotExist';
+    return respondJSON(request, response, 400, JSON.stringify(responseJSON));
+  }
+
+  delete galleries[`gal-${body.galName}`];
+
+  responseJSON.message = `Successfully deleted gallery named '${body.galName}'.`;
+  return respondJSON(request, response, 200, JSON.stringify(responseJSON));
+};
+
+const removeImage = (request, response, body) => {
+  const responseJSON = {
+    message: "Name required to remove image."
+  }
+
+  if (!body.imgName) {
+    responseJSON.id = 'removeImageMissingParam';
+    return respondJSON(request, response, 400, JSON.stringify(responseJSON));
+  }
+
+  if (JSON.stringify(galleries) === '{}') {
+    responseJSON.message = 'No galleries created; No images to be removed.';
+    responseJSON.id = 'noGalleriesCreated';
+    return respondJSON(request, response, 400, JSON.stringify(responseJSON));
+  }
+
+  if (!galleries[`gal-${body.galName}`].images[`img-${body.imgName}`]) {
+    responseJSON.message = `Image name '${body.imgName}' does not exist in this gallery.`;
+    responseJSON.id = 'imageDoesNotExist';
+    return respondJSON(request, response, 400, JSON.stringify(responseJSON));
+  }
+
+  delete galleries[`gal-${body.galName}`].images[`img-${body.imgName}`];
+
+  responseJSON.message = `Successfully deleted image name '${body.imgName}' from gallery.`;
+  return respondJSON(request, response, 200, JSON.stringify(responseJSON));
+};
+
 const notFound = (request, response) => {
   const responseJSON = { message: 'The page you were looking for could not be found.', id: 'contentNotFound' };
 
@@ -151,6 +201,8 @@ module.exports = {
   getGalleryMeta,
   createGallery,
   addImage,
+  removeGallery,
+  removeImage,
   notFound,
   notFoundMeta,
 };

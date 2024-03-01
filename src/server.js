@@ -55,6 +55,8 @@ const onRequest = (request, response) => {
   urlStruct.POST = {
     '/createGallery': () => { parseBody(request, response, jsonHandler.createGallery); },
     '/addImage': () => { parseBody(request, response, jsonHandler.addImage); },
+    '/removeGallery': () => { parseBody(request, response, jsonHandler.removeGallery); },
+    '/removeImage': () => { parseBody(request, response, jsonHandler.removeImage); },
   };
 
   const methodHandler = urlStruct[request.method];
