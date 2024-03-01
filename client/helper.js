@@ -1,4 +1,15 @@
-const handleResponse = async (response) => {
+const handleUserResponse = async (response) => {
+    const responseText = await response.text();
+    console.log(responseText);
+
+    if (responseText == '') { return; }
+
+    const parsedData = JSON.parse(responseText);
+
+    let message = parsedData.message;
+};
+
+const handleImageResponse = async (response) => {
     const responseText = await response.text();
     console.log(responseText);
 
@@ -7,7 +18,6 @@ const handleResponse = async (response) => {
     const parsedData = JSON.parse(responseText);
 
     let galleries = parsedData.galleries;
-    let message = parsedData.message;
 
     const activeGal = getActiveGallery(document.getElementById('galleries').childNodes);
 
@@ -33,7 +43,7 @@ const handleResponse = async (response) => {
 const getGalleries = async () => {
     const response = await fetch('/getGallery', { method: 'get'});
 
-    handleResponse(response);
+    handleImageResponse(response);
 };
 
 const sendGalleryPost = async (form) => {
@@ -63,7 +73,7 @@ const sendGalleryPost = async (form) => {
         body: formData
     });
 
-    handleResponse(response);
+    handleUserResponse(response);
 
     if (galName == '' || isCreated){ return; }
 
@@ -111,7 +121,7 @@ const sendImagePost = async (form) => {
         body: formData
     });
 
-    handleResponse(response);
+    handleUserResponse(response);
 
     getGalleries();
 };
@@ -145,7 +155,7 @@ const sendGalleryRemoval = async (form) => {
         body: formData
     });
 
-    handleResponse(response);
+    handleUserResponse(response);
 
     if (galName == '' || !isCreated){ return; }
 
@@ -189,7 +199,7 @@ const sendImageRemoval = async (form) => {
         body: formData
     });
 
-    handleResponse(response);
+    handleUserResponse(response);
 
     getGalleries();
 };
@@ -210,8 +220,6 @@ const setGalleriesInactive = (galleries) => {
 };
 
 module.exports = {
-    handleResponse,
-    getGalleries,
     sendGalleryPost,
     sendImagePost,
     sendGalleryRemoval,
