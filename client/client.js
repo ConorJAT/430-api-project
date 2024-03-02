@@ -37,6 +37,7 @@ const buildForm = (elementID) => {
         galFormName.setAttribute('type', 'text');
         galFormName.setAttribute('name', 'galName');
         galFormName.setAttribute('id', 'gal-name-field');
+        galFormName.setAttribute('class', 'text-field');
 
         const galFormSubmit = document.createElement('input');
         galFormSubmit.setAttribute('type', 'submit');
@@ -82,6 +83,7 @@ const buildForm = (elementID) => {
         formNameField.setAttribute('type', 'text');
         formNameField.setAttribute('name', 'imgName');
         formNameField.setAttribute('id', 'img-name-field');
+        formNameField.setAttribute('class', 'text-field');
 
         const formSourceLabel = document.createElement('label');
         formSourceLabel.setAttribute('for', 'imgSource');
@@ -91,6 +93,7 @@ const buildForm = (elementID) => {
         formSourceField.setAttribute('type', 'text');
         formSourceField.setAttribute('name', 'imgSource');
         formSourceField.setAttribute('id', 'img-source-field');
+        formSourceField.setAttribute('class', 'text-field');
 
         const formURLLabel = document.createElement('label');
         formURLLabel.setAttribute('for', 'imgURL');
@@ -100,6 +103,7 @@ const buildForm = (elementID) => {
         formURLField.setAttribute('type', 'text');
         formURLField.setAttribute('name', 'imgURL');
         formURLField.setAttribute('id', 'img-url-field');
+        formURLField.setAttribute('class', 'text-field');
 
         const imgFormSubmit = document.createElement('input');
         imgFormSubmit.setAttribute('type', 'submit');
@@ -151,6 +155,7 @@ const buildForm = (elementID) => {
         galFormName.setAttribute('type', 'text');
         galFormName.setAttribute('name', 'galName');
         galFormName.setAttribute('id', 'gal-name-field');
+        galFormName.setAttribute('class', 'text-field');
 
         const galFormSubmit = document.createElement('input');
         galFormSubmit.setAttribute('type', 'submit');
@@ -194,6 +199,7 @@ const buildForm = (elementID) => {
         imgFormName.setAttribute('type', 'text');
         imgFormName.setAttribute('name', 'imgName');
         imgFormName.setAttribute('id', 'img-name-field');
+        imgFormName.setAttribute('class', 'text-field');
 
         const imgFormSubmit = document.createElement('input');
         imgFormSubmit.setAttribute('type', 'submit');
