@@ -12,6 +12,8 @@ const init = (e) => {
     navDelImg.addEventListener('click', () => { buildForm(navDelImg.id); });
 
     buildForm('add-gal');
+
+    helper.getGalleries(helper.handlePageLoad);
 };
 
 const buildForm = (elementID) => {

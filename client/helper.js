@@ -1,17 +1,59 @@
+const handlePageLoad = async (response) => {
+    const responseText = await response.text();
+
+    const parsedData = JSON.parse(responseText);
+
+    let galleries = parsedData.galleries;
+    if (!galleries) { return; }
+
+    const gallerySelect = document.getElementById('galleries');
+
+    for (let gallery in galleries){
+        const newGal = document.createElement('div');
+        newGal.setAttribute('class', 'gallery');
+        newGal.setAttribute('active', 'false');
+        newGal.setAttribute('name', galleries[gallery].name);
+        newGal.appendChild(document.createTextNode( galleries[gallery].name));
+
+        newGal.style.backgroundColor = 'antiquewhite';
+
+        newGal.addEventListener('click', () => {
+            setGalleriesInactive(document.getElementById('galleries').childNodes);
+            newGal.setAttribute('active', 'true');
+            newGal.style.backgroundColor = 'rgb(201, 189, 174)';
+            getGalleries(handleImageResponse);
+        });
+
+        gallerySelect.appendChild(newGal)
+    }
+
+    if (gallerySelect.childNodes.length > 0) {
+        gallerySelect.childNodes[0].setAttribute('active', 'true');
+        gallerySelect.childNodes[0].style.backgroundColor = 'rgb(201, 189, 174)';
+    }
+}
+
 const handleUserResponse = async (response) => {
     const responseText = await response.text();
-    console.log(responseText);
 
     if (responseText == '') { return; }
 
     const parsedData = JSON.parse(responseText);
 
     let message = parsedData.message;
+    let id = parsedData.id;
+
+    if (id) {
+        let alertString = `ERROR: ${message}\n\nID: ${id}`;
+        alert(alertString);
+    } else {
+        console.log(responseText);
+    }
 };
 
 const handleImageResponse = async (response) => {
     const responseText = await response.text();
-    console.log(responseText);
+    // console.log(responseText);
 
     if (responseText == '') { return; }
 
@@ -40,10 +82,9 @@ const handleImageResponse = async (response) => {
     }
 };
 
-const getGalleries = async () => {
+const getGalleries = async (handlerFunc) => {
     const response = await fetch('/getGallery', { method: 'get'});
-
-    handleImageResponse(response);
+    handlerFunc(response);
 };
 
 const sendGalleryPost = async (form) => {
@@ -91,7 +132,7 @@ const sendGalleryPost = async (form) => {
         setGalleriesInactive(document.getElementById('galleries').childNodes);
         newGal.setAttribute('active', 'true');
         newGal.style.backgroundColor = 'rgb(201, 189, 174)';
-        getGalleries();
+        getGalleries(handleImageResponse);
     });
 
     createdGals.appendChild(newGal)
@@ -123,7 +164,7 @@ const sendImagePost = async (form) => {
 
     handleUserResponse(response);
 
-    getGalleries();
+    getGalleries(handleImageResponse);
 };
 
 const sendGalleryRemoval = async (form) => {
@@ -170,7 +211,7 @@ const sendGalleryRemoval = async (form) => {
 
     createdGals.removeChild(galToRemove);
 
-    getGalleries();
+    getGalleries(handleImageResponse);
 
     if (createdGals.childNodes.length == 0) {
         document.getElementById('img-display').innerHTML = '';
@@ -201,7 +242,7 @@ const sendImageRemoval = async (form) => {
 
     handleUserResponse(response);
 
-    getGalleries();
+    getGalleries(handleImageResponse);
 };
 
 const getActiveGallery = (galleries) => {
@@ -220,6 +261,8 @@ const setGalleriesInactive = (galleries) => {
 };
 
 module.exports = {
+    getGalleries,
+    handlePageLoad,
     sendGalleryPost,
     sendImagePost,
     sendGalleryRemoval,
