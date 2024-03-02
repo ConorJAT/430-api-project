@@ -6,14 +6,14 @@ body{
 #grid{
     display: grid;
     grid-template-columns: 25% 50% 25%;
-    grid-template-rows: 128px 40px 660px;
+    grid-template-rows: 128px 40px 700px;
     grid-template-areas: 
         "header  header  header"
         "nav     nav     nav"
         "input   images  galleries"
         "footer  footer  footer";
 
-    width: 90%;
+    width: 100%;
     min-width: 750px;
     max-width: 1360px;
     margin: 0 auto;
@@ -21,6 +21,8 @@ body{
 
 header{
     grid-area: header;
+
+    background-color: #DAFFEF;
 
     text-align: center;
 }
@@ -34,16 +36,14 @@ header{
 #user-input{
     grid-area: input;
 
-    background-color: rgb(192, 192, 192);
-
+    background-color: #d1cad1;
     padding: 10px;
 }
 
 #img-display{
     grid-area: images;
 
-    background-color: rgb(204, 204, 204);
-
+    background-color: rgb(233, 230, 233);
     padding: 20px;
 
     display: flex;
@@ -58,7 +58,7 @@ header{
 #gal-list{
     grid-area: galleries;
 
-    background-color: rgb(192, 192, 192);
+    background-color: #d1cad1;
 
     padding: 10px;
 
@@ -69,6 +69,9 @@ header{
 
 footer{
     grid-area: footer;
+
+    background-color: #DAFFEF;
+    padding: 15px;
 }
 
 /* -- NAVBAR STYLES -- */
@@ -76,7 +79,7 @@ footer{
     width: 25%;
     height: 40px;
 
-    background-color: bisque;
+    background-color: #4DA871;
 
     display: flex;
     align-items: center;
@@ -84,11 +87,11 @@ footer{
 }
 
 .nav-btn:hover{
-    background-color: rgb(214, 189, 158);
+    background-color: #408C5E;
 }
 
 .nav-btn:active{
-    background-color: rgb(187, 165, 139);
+    background-color: #3A7E55;
 }
 
 /* -- FORM STYLES -- */
@@ -101,6 +104,8 @@ footer{
     height: 120px;
     transition: 0.2s;
     z-index: 5;
+
+    border: 1px solid black;
 }
 
 .galImage:hover {
@@ -126,4 +131,8 @@ footer{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.gallery:hover{
+    background-color: #408C5E;
 }

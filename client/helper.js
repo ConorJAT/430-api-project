@@ -18,12 +18,12 @@ const handlePageLoad = async (response) => {
         newGal.setAttribute('name', galleries[gallery].name);
         newGal.appendChild(document.createTextNode( galleries[gallery].name));
 
-        newGal.style.backgroundColor = 'antiquewhite';
+        newGal.style.backgroundColor = '#4DA871';
 
         newGal.addEventListener('click', () => {
             setGalleriesInactive(document.getElementById('galleries').childNodes);
             newGal.setAttribute('active', 'true');
-            newGal.style.backgroundColor = 'rgb(201, 189, 174)';
+            newGal.style.backgroundColor = '#3A7E55';
             getGalleries(handleImageResponse);
         });
 
@@ -32,7 +32,7 @@ const handlePageLoad = async (response) => {
 
     if (gallerySelect.childNodes.length > 0) {
         gallerySelect.childNodes[0].setAttribute('active', 'true');
-        gallerySelect.childNodes[0].style.backgroundColor = 'rgb(201, 189, 174)';
+        gallerySelect.childNodes[0].style.backgroundColor = '#3A7E55';
     }
 
     getGalleries(handleImageResponse);
@@ -131,12 +131,12 @@ const sendGalleryPost = async (form) => {
     newGal.setAttribute('name', galName);
     newGal.appendChild(document.createTextNode(galName));
 
-    newGal.style.backgroundColor = 'rgb(201, 189, 174)';
+    newGal.style.backgroundColor = '#3A7E55';
 
     newGal.addEventListener('click', () => {
         setGalleriesInactive(document.getElementById('galleries').childNodes);
         newGal.setAttribute('active', 'true');
-        newGal.style.backgroundColor = 'rgb(201, 189, 174)';
+        newGal.style.backgroundColor = '#3A7E55';
         getGalleries(handleImageResponse);
     });
 
@@ -209,11 +209,11 @@ const sendGalleryRemoval = async (form) => {
 
     if (galToRemove.getAttribute('active') === 'true' && createdGals.childNodes.length > 1 && createdGals.childNodes[0] == galToRemove) {
         galToRemove.nextSibling.setAttribute('active', 'true');
-        galToRemove.nextSibling.style.backgroundColor = 'rgb(201, 189, 174)';
+        galToRemove.nextSibling.style.backgroundColor = '#3A7E55';
         
     } else if (galToRemove.getAttribute('active') === 'true') {
         createdGals.childNodes[0].setAttribute('active', 'true');
-        createdGals.childNodes[0].style.backgroundColor = 'rgb(201, 189, 174)';
+        createdGals.childNodes[0].style.backgroundColor = '#3A7E55';
     }
 
     createdGals.removeChild(galToRemove);
@@ -263,7 +263,7 @@ const getActiveGallery = (galleries) => {
 const setGalleriesInactive = (galleries) => {
     for (let gallery of galleries) { 
         gallery.setAttribute('active', 'false'); 
-        gallery.style.backgroundColor = 'antiquewhite';
+        gallery.style.backgroundColor = '#4DA871';
     }
 };
 
