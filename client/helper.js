@@ -31,6 +31,8 @@ const handlePageLoad = async (response) => {
         gallerySelect.childNodes[0].setAttribute('active', 'true');
         gallerySelect.childNodes[0].style.backgroundColor = 'rgb(201, 189, 174)';
     }
+
+    getGalleries(handleImageResponse);
 }
 
 const handleUserResponse = async (response) => {
@@ -135,7 +137,9 @@ const sendGalleryPost = async (form) => {
         getGalleries(handleImageResponse);
     });
 
-    createdGals.appendChild(newGal)
+    createdGals.appendChild(newGal);
+
+    getGalleries(handleImageResponse);
 };
 
 const sendImagePost = async (form) => {
