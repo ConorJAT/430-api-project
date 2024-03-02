@@ -16,17 +16,32 @@
 
 const galleries = {};
 
+// respondJSON(request, response, status, object)
+// - Generic function that allows for for the creation of
+//   JSON responses, specifically for GET and POST requests.
+//
+// status: Status code of the particular response.
+// object: Stringified JSON object that holds response info.
 const respondJSON = (request, response, status, object) => {
   response.writeHead(status, { 'Content-Type': 'application/json' });
   response.write(object);
   response.end();
 };
 
+// respondJSONMeta(request. response, status)
+// - Generic function that only writes head JSON responses,
+//   specifically for HEAD requests.
+//
+// status: Status code of the particular response.
 const respondJSONMeta = (request, response, status) => {
   response.writeHead(status, { 'Content-Type': 'application/json' });
   response.end();
 };
 
+// getGallery(request, response)
+// - GET function that returns a JSON response with code 200
+//   with galleries object OR a response with code 400, if
+//   the galleries object is empty.
 const getGallery = (request, response) => {
   // If no galleries exist yet, respond with 400 error response.
   if (JSON.stringify(galleries) === '{}') {
@@ -44,11 +59,18 @@ const getGallery = (request, response) => {
   return respondJSON(request, response, 200, JSON.stringify(responseJSON));
 };
 
+// getGalleryMeta(request, response)
+// - HEAD function that returns a 200 head response.
 const getGalleryMeta = (request, response) => {
   // Respond with response code of 200.
   respondJSONMeta(request, response, 200);
 };
 
+// createGallery(request, response, body)
+// - POST function that creates a gallery object within galleries.
+//   May return either a 201 or a 400 response.
+//
+// body: Sent in user parameters used to alter the server data.
 const createGallery = (request, response, body) => {
   // Set up response JSON.
   const responseJSON = {
@@ -88,6 +110,12 @@ const createGallery = (request, response, body) => {
   return respondJSON(request, response, responseCode, JSON.stringify(responseJSON));
 };
 
+// addImage(request, response, body)
+// - POST function that creates an image object within a
+//   gallery's 'images' key (see structure above). May return
+//   a 201 or 400 post response or a 204 head response.
+//
+// body: Sent in user parameters used to alter the server data.
 const addImage = (request, response, body) => {
   // Set up response JSON.
   const responseJSON = {
@@ -136,6 +164,11 @@ const addImage = (request, response, body) => {
   return respondJSON(request, response, 201, JSON.stringify(responseJSON));
 };
 
+// removeGallery(request, response, body)
+// - POST function that removes a gallery object within galleries.
+//   May return either a 200 or a 400 response.
+//
+// body: Sent in user parameters used to alter the server data.
 const removeGallery = (request, response, body) => {
   // Set up repsonse JSON.
   const responseJSON = {
@@ -164,6 +197,12 @@ const removeGallery = (request, response, body) => {
   return respondJSON(request, response, 200, JSON.stringify(responseJSON));
 };
 
+// removeImage(request, response, body)
+// - POST function that removes an image object within a
+//   gallery's 'images' key (see structure above). May return
+//   a 200 or 400 post response.
+//
+// body: Sent in user parameters used to alter the server data.
 const removeImage = (request, response, body) => {
   // Set up response JSON.
   const responseJSON = {
@@ -198,16 +237,21 @@ const removeImage = (request, response, body) => {
   return respondJSON(request, response, 200, JSON.stringify(responseJSON));
 };
 
+// notFound(request, response)
+// - GET function that returns a 404 response.
 const notFound = (request, response) => {
   const responseJSON = { message: 'The page you were looking for could not be found.', id: 'contentNotFound' };
 
   respondJSON(request, response, 404, JSON.stringify(responseJSON));
 };
 
+// notFoundMeta(request, response)
+// - HEAD function that returns a 404 head response.
 const notFoundMeta = (request, response) => {
   respondJSONMeta(request, response, 404);
 };
 
+// Export all functions (except the generic ones) for server.js.
 module.exports = {
   getGallery,
   getGalleryMeta,

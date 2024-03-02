@@ -6,6 +6,12 @@ const jsonHandler = require('./jsonResponses.js');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
+// parseBody(request, response, handler)
+// - Function that helps parse in user input and
+//   utilizes that input to make changes to the server
+//   data.
+//
+// handler: POST function handler.
 const parseBody = (request, response, handler) => {
   const body = [];
 
@@ -34,6 +40,9 @@ const parseBody = (request, response, handler) => {
   });
 };
 
+// Struct used to define all pathways necessary for the
+// server to perform its core actions (POST methods have
+// to be added later b/c of request and response variables).
 const urlStruct = {
   GET: {
     '/': htmlHandler.getIndex,
@@ -49,9 +58,12 @@ const urlStruct = {
   },
 };
 
+// Receives user request and engages in a particular action
+// based on parsed URL value.
 const onRequest = (request, response) => {
   const parsedURL = url.parse(request.url);
 
+  // POST methods are added here b/c of the need for request and response in parseBody.
   urlStruct.POST = {
     '/createGallery': () => { parseBody(request, response, jsonHandler.createGallery); },
     '/addImage': () => { parseBody(request, response, jsonHandler.addImage); },
@@ -59,6 +71,7 @@ const onRequest = (request, response) => {
     '/removeImage': () => { parseBody(request, response, jsonHandler.removeImage); },
   };
 
+  // GET, HEAD, or POST?
   const methodHandler = urlStruct[request.method];
   if (!methodHandler) {
     urlStruct.HEAD.notFound(request, response);
@@ -66,6 +79,7 @@ const onRequest = (request, response) => {
 
   const handlerFunc = methodHandler[parsedURL.pathname];
 
+  // What function needs to be called?
   if (handlerFunc) {
     handlerFunc(request, response);
   } else {
@@ -73,4 +87,5 @@ const onRequest = (request, response) => {
   }
 };
 
+// Start the server.
 http.createServer(onRequest).listen(port, () => { console.log(`Listening on 127.0.0.1:${port}`); });
