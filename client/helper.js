@@ -4,7 +4,10 @@ const handlePageLoad = async (response) => {
     const parsedData = JSON.parse(responseText);
 
     let galleries = parsedData.galleries;
-    if (!galleries) { return; }
+    if (!galleries) { 
+        console.log('No galleries from server to display.')
+        return; 
+    }
 
     const gallerySelect = document.getElementById('galleries');
 
@@ -55,7 +58,7 @@ const handleUserResponse = async (response) => {
 
 const handleImageResponse = async (response) => {
     const responseText = await response.text();
-    // console.log(responseText);
+    //console.log(responseText);
 
     if (responseText == '') { return; }
 
