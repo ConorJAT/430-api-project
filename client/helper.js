@@ -75,6 +75,12 @@ const handleImageResponse = async (response) => {
     // Retrieve galleries value.
     let galleries = parsedData.galleries;
 
+    // If no galleries exist, log out message and return.
+    if (!galleries) { 
+        console.log('No galleries from server to display.')
+        return; 
+    }
+
     // Get the active gallery and retrieve its name.
     let galName = '';
     const activeGal = getActiveGallery(document.getElementById('galleries').childNodes);
@@ -322,12 +328,13 @@ const sendGalleryRemoval = async (form) => {
     // Remove the gallery from the client side list.
     createdGals.removeChild(galToRemove);
 
-    // Update client side image display.
-    getGalleries(handleImageResponse);
-
     // If no galleries exist, clear the image display.
     if (createdGals.childNodes.length == 0) {
         document.getElementById('img-display').innerHTML = '';
+
+    // Else, update client side image display.
+    } else {
+        getGalleries(handleImageResponse);
     }
 };
 
