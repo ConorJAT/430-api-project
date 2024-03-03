@@ -16,7 +16,7 @@ const handlePageLoad = async (response) => {
 
     // If no galleries exist, log out message and return.
     if (!galleries) { 
-        console.log('No galleries from server to display.')
+        console.log('No galleries from server to display on load time.')
         return; 
     }
 
@@ -33,13 +33,13 @@ const handlePageLoad = async (response) => {
         newGal.appendChild(document.createTextNode( galleries[gallery].name));
 
         // Set background color as NOT selected.
-        newGal.style.backgroundColor = '#4DA871';
+        newGal.style.backgroundColor = '#B4D0C5';
 
         // Add on click event listener that allows to click between galleries.
         newGal.addEventListener('click', () => {
             setGalleriesInactive(document.getElementById('galleries').childNodes);
             newGal.setAttribute('active', 'true');
-            newGal.style.backgroundColor = '#3A7E55';
+            newGal.style.backgroundColor = '#8EB8A7';
             getGalleries(handleImageResponse);
         });
 
@@ -50,7 +50,7 @@ const handlePageLoad = async (response) => {
     // If there's at least one created gallery, set the first as active.
     if (gallerySelect.childNodes.length > 0) {
         gallerySelect.childNodes[0].setAttribute('active', 'true');
-        gallerySelect.childNodes[0].style.backgroundColor = '#3A7E55';
+        gallerySelect.childNodes[0].style.backgroundColor = '#8EB8A7';
     }
 
     // Update client side image display.
@@ -201,13 +201,13 @@ const sendGalleryPost = async (form) => {
     newGal.appendChild(document.createTextNode(galName));
 
     // Set background color as selected.
-    newGal.style.backgroundColor = '#3A7E55';
+    newGal.style.backgroundColor = '#8EB8A7';
 
     // Add on click event listener that allows to click between galleries.
     newGal.addEventListener('click', () => {
         setGalleriesInactive(document.getElementById('galleries').childNodes);
         newGal.setAttribute('active', 'true');
-        newGal.style.backgroundColor = '#3A7E55';
+        newGal.style.backgroundColor = '#8EB8A7';
         getGalleries(handleImageResponse);
     });
 
@@ -311,12 +311,12 @@ const sendGalleryRemoval = async (form) => {
     // If gallery is active, is NOT the only one, AND is the first one in the list:
     if (galToRemove.getAttribute('active') === 'true' && createdGals.childNodes.length > 1 && createdGals.childNodes[0] == galToRemove) {
         galToRemove.nextSibling.setAttribute('active', 'true');
-        galToRemove.nextSibling.style.backgroundColor = '#3A7E55';
+        galToRemove.nextSibling.style.backgroundColor = '#8EB8A7';
         
     // Else, if gallery is just active:
     } else if (galToRemove.getAttribute('active') === 'true') {
         createdGals.childNodes[0].setAttribute('active', 'true');
-        createdGals.childNodes[0].style.backgroundColor = '#3A7E55';
+        createdGals.childNodes[0].style.backgroundColor = '#8EB8A7';
     }
 
     // Remove the gallery from the client side list.
@@ -391,7 +391,7 @@ const getActiveGallery = (galleries) => {
 const setGalleriesInactive = (galleries) => {
     for (let gallery of galleries) { 
         gallery.setAttribute('active', 'false'); 
-        gallery.style.backgroundColor = '#4DA871';
+        gallery.style.backgroundColor = '#B4D0C5';
     }
 };
 
